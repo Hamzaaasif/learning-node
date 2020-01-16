@@ -7,7 +7,7 @@ exports.createPostValidator = (req , res , next)=>{
    })
 
    req.check('Cus_Name',"Name is required..").notEmpty
-   req.check('Cus_Name',"Name is required .. ").isLength({
+   req.check('Cus_Name',"Name is require .. ").isLength({
     min:5 ,
     max:50
   })

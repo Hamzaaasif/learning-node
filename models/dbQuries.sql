@@ -1,4 +1,14 @@
 use nodesql;
+-- CREATE table users(
+--   user_id int not null unique AUTO_INCREMENT ,
+--   user_name varchar(50) not null,
+--   email varchar(100) unique not null,
+--   hashedPassword varchar(10) not null,
+--   salt varchar(50),
+--   creationDate DATE ,
+--   PRIMARY key(user_id)
+-- );
+
 UPDATE cus_info SET cus_DOB = '1996-12-26' WHERE cus_CNIC = "42201-6858142-7";
 
 

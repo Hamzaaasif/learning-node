@@ -17,7 +17,10 @@ app.use("/viewcusinfo" ,postRoutes);
 app.post("/createposts",postRoutes);
 app.use("/searchbycnic/:id", postRoutes);
 app.delete("/deletebycnic/:id", postRoutes);
+app.use("/checkvirtual" , postRoutes)
 
+const authRoutes = require("./routes/auth");
+app.use("/" , authRoutes)
 
 
 

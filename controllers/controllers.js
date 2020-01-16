@@ -1,12 +1,13 @@
 var mysql = require('mysql');
-const bodyparser = require('body-parser');
 
-var con = mysql.createConnection({
+
+ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
   database:"nodesql"
 });
+
 
 con.connect(function(err) {
   if (err) throw err;
@@ -69,3 +70,7 @@ exports.deletebycnic =(req , res)=>{
     res.send("Deledted success..");
   })
 }
+
+
+
+
