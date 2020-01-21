@@ -11,4 +11,4 @@ router.get("/viewcusinfo",Controllers.viewcusinfo);
 router.get("/searchbycnic/:id", Controllers.searchbycnic);
 router.delete("/deletebycnic/:id", Controllers.deletebycnic);
 
-module.exports = router;
+module.exports = router; 

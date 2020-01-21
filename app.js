@@ -3,12 +3,14 @@ const app = express();
 const postRoutes = require("./routes/routes");
 const morgan = require('morgan');
 const bodyparer = require('body-parser');
+var cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator'); 
 
 
 //middleware
 app.use(bodyparer.json());
 app.use(morgan("dev"));
+app.use(cookieParser())
 //error handler
 app.use(expressValidator());
 //Routes
