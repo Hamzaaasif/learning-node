@@ -5,25 +5,42 @@ const morgan = require('morgan');
 const bodyparer = require('body-parser');
 var cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator'); 
-
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
+const fs = require('fs') 
+const cors = require('cors') 
 
 //middleware
 app.use(bodyparer.json());
 app.use(morgan("dev"));
 app.use(cookieParser())
+app.use(cors())
+
 //error handler
 app.use(expressValidator());
+//api docs
+app.get("/",(req , res)=>{
+  fs.readFile('docs/apidocs.json',(err , data)=>{
+    if(err){
+      res.status(400).json({
+        error: err
+      })
+    }
+    const docs = JSON.parse(data)
+    res.json(docs);
+  })
+})
+
 //Routes
-app.use("/", postRoutes); //url call back function(req,res) 
-app.use("/viewcusinfo" ,postRoutes);
-app.post("/createposts",postRoutes);
-app.use("/searchbycnic/:id", postRoutes);
-app.delete("/deletebycnic/:id", postRoutes);
-app.use("/checkvirtual" , postRoutes)
-
-const authRoutes = require("./routes/auth");
+app.use("/", postRoutes); 
 app.use("/" , authRoutes)
+app.use("/" , userRoutes)
 
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({error: 'Unauthorized!!..'});
+  }
+});
 
 
 

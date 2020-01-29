@@ -15,12 +15,6 @@ con.connect(function(err) {
    
 });
 
-exports.mainroute = function (req , res)
-{
-  res.send("This is main Route... )"); 
-}
-
-
 
 //for create post
 exports.createposts = (req , res)=>{
@@ -29,18 +23,9 @@ exports.createposts = (req , res)=>{
   let sql = "INSERT INTO cus_info SET ?";
 
   con.query(sql,data ,(err , result)=>{
-    // if(err){
-    //   return res.status(400).json({
-    //   error : err
-    // })
-    // }
-    //else{
       res.status(400).json({
-        post:result
+        post:data
       })      
-
-    //}
-    
   })
 }
 
@@ -56,9 +41,11 @@ exports.viewcusinfo = (req , res)=>{
 
 //searching by cnic
 exports.searchbycnic = (req , res)=>{
- con.query("SELECT * FROM cus_info WHERE cus_CNIC = ? ",[req.params.id] , (err , rows , feilds)=>
+ con.query("SELECT * FROM cus_info WHERE cus_CNIC = ? ",[req.params.id] , (err , rows )=>
  {
-   if(err)throw err;
+   if(err || rows==""){
+     return res.status(404).json({error : "User not found with that cnic.."})
+   };
    res.send(rows);
  }) 
 }
@@ -66,7 +53,12 @@ exports.searchbycnic = (req , res)=>{
 //deleting by cnic
 exports.deletebycnic =(req , res)=>{
   con.query("DELETE FROM cus_info WHERE cus_CNIC=?",[req.params.id],(err , rows , feilds)=>{
-    if(err)throw err;
+    if(err)
+    {
+      res.status(400).json({
+        error:"Customer not found with that cnic"
+      })
+    };
     res.send("Deledted success..");
   })
 }

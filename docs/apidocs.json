@@ -1,0 +1,13 @@
+{
+  "/":"get all post routes",
+  "/createposts" : "Create post of customer info ",
+  "/viewcusinfo":"View all customer information",
+  "/searchbycnic/:id":"Search user by cnic",
+  "/deletebycnic/:id":"Delete user by cninc",
+  "/signup":"For new users to sign up",
+  "/signin":"To sign in existising customers",
+  "/signout":"Sign out users",
+  "/getusers":"Getting all the users",
+  "/user/:userid":"Get req for getting perticular user by id",
+  "/user/:userId":"Put req for update user information"
+}

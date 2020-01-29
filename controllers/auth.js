@@ -2,6 +2,7 @@ var mysql = require('mysql');
 const uuidv1 = require('uuid/v1');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
+const expressJwt = require('express-jwt')
 require('dotenv').config()
 
 var con = mysql.createConnection({
@@ -69,13 +70,9 @@ exports.signin= (req , res)=>{
     {
 
       const matchedpass = securePassword(hashedPassword , result[0].salt) 
-      // console.log("pass from db encryption... " , hashedPassword)
-      // console.log("Result pass ", result[0].hashedPassword)
-      // console.log("plain pass from db " , autheticateUser(result[0].hashedPassword))
 
       if(result[0].hashedPassword == matchedpass)
       {
-        console.log("hbahbaiabhbahjb")
         //creating jwt tokens 
         const token  = jwt.sign({_id : result[0].user_id} , process.env.JWT_SECRET);
         //process the token as cookie with expire 
@@ -98,9 +95,26 @@ exports.signin= (req , res)=>{
   
 }
 
+
+
+
+exports.signout = (req , res)=>{
+  res.clearCookie("t")
+  return res.json({message : "Sign out successfull !!.."})
+}
+
+
+
+exports.requireSignin = expressJwt({
+  secret : process.env.JWT_SECRET,
+  userProperty : "auth"
+})
+
+
+
+
 function autheticateUser(password , salt)
 {
-  console.log("Hased pas",this.hashedPassword)
   return encryptPassword(password , salt) ;
 }
 
@@ -122,4 +136,5 @@ function encryptPassword(password , salt){
     }
   
 }
+
 
