@@ -22,9 +22,9 @@ import Copyright from './styles'
     {
       super()
       this.state = {
-        name : "",
+        user_name : "",
         email :"",
-        password : "",
+        hashedPassword : "",
         err: ""
       }
       
@@ -33,26 +33,40 @@ import Copyright from './styles'
     ClickSubmit = event =>
     {
       event.preventDefault();
-      const {name , email , password} = this.state
+      const {user_name , email , hashedPassword} = this.state
       const user ={
-        name , 
+        user_name , 
         email ,
-        password 
+        hashedPassword 
       }
-      console.log(user);
-    }
+      console.log("Password pass at front end : " , user.password);
+      fetch("http://localhost:8000/signup" , {
+        method : "POST",
+        headers :{
+          Accept : "application/json",
+          "Content-Type" :"application/json"
+        },
+        body : JSON.stringify(user)
+    })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err))
+
+    };
 
     handleChange = (name ) => event =>
     {
       this.setState({[name] : event.target.value })
     }
 
+    
 
   render()
   {
     
 
-    const {name , email , password} = this.state
+    const {user_name , email , hashedPassword} = this.state
     return ( 
       
     
@@ -73,8 +87,8 @@ import Copyright from './styles'
                 id="userName"
                 label="User Name"
                 name="username"
-                value = {name}
-                onChange = {this.handleChange("name")}
+                value = {user_name}
+                onChange = {this.handleChange("user_name")}
                 autoComplete="Uname"
               />
 
@@ -103,8 +117,8 @@ import Copyright from './styles'
                 label="Password"
                 type="password"
                 id="password"
-                value = {password}
-                onChange = {this.handleChange("password")}
+                value = {hashedPassword}
+                onChange = {this.handleChange("hashedPassword")}
                 autoComplete="current-password"
               />
               

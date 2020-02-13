@@ -4,7 +4,7 @@ const router  = express.Router();
 const {usersignupvalidator} = require('../validator/index')
 const {userById} = require("../controllers/users") ;
 
-router.post("/signup" , usersignupvalidator , signup); 
+router.post("/signup" , signup); 
 router.post("/signin" , signin )
 router.get("/signout" , signout )
 

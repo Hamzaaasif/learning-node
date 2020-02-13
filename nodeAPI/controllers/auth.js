@@ -24,6 +24,7 @@ exports.signup = async(req , res)=>{
   let sql = "SELECT email FROM users WHERE email = ? "
   let data = req.body.email;
   var temp = await con.query (sql , data , (err , rows )=>{
+    console.log("req body  password " , req.body.user_name);
     if(err == null && rows[0]==null)
     { 
       var tempsalt = uuidv1();
@@ -35,7 +36,7 @@ exports.signup = async(req , res)=>{
         salt: tempsalt,
         creationDate: new Date()
       }
-      console.log("hased password " , userdata.hashedPassword);
+      
       let sql = "insert into users SET ?"
        con.query(sql , userdata , (err , result)=>{
        // await;
@@ -121,11 +122,12 @@ function autheticateUser(password , salt)
 
 function securePassword(password , salt){
    this._password = password;
+   
     return this.hashedPassword = encryptPassword(password , salt);
 }
 
 function encryptPassword(password , salt){
-    if(!password) return "Error";
+    if(!password) return "Error at password";
     try{
       return crypto.createHmac('sha1', salt)
       .update(password)

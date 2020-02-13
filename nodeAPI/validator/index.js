@@ -34,11 +34,7 @@ exports.usersignupvalidator = (req , res , next)=>{
     max:2000
   })
   //check for pass
-  req.check("hashedPassword","Password is required..").notEmpty;
-  req.check("hashedPassword","Password must contain 6 characters..")
-  .isLength({
-    min : 6
-  })
+  req.check("hashedPassword","Password is required..").notEmpty
   .matches(/\d/)
   .withMessage("Password must contain a number..")
 
