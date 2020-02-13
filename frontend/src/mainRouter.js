@@ -3,7 +3,7 @@ import React from 'react'
 import {Route , Switch} from 'react-router-dom' 
 import {Home} from './core/Home'
 import {SignInSide} from './users/signin'
-import {SignUp } from './users/signup' 
+import SignUp  from './users/signup' 
 
 export const MainRouter =()=>(
   <div>

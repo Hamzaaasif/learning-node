@@ -1,4 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react'
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 export const useStyles = makeStyles(theme => ({
   //sign in styles
@@ -31,3 +34,16 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(6, 0, 4),
   },
 }));
+
+export default function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mayarbuilders.com/">
+        Mayar Group
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  )
+}
